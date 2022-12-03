@@ -20,9 +20,7 @@ router.get('/', (req, res) => {
         cuisines: 'Coffee, Bakery',
         pic: '/images/rest2.jpg'
       }]
-      
       res.render('places/index', { places })
-
 })
 
 module.exports = router
