@@ -1,9 +1,9 @@
 const router = require('express').Router()
 const places = require('../models/places.js')
 
-//get places
+//Get places
 router.get('/', (req, res) => {
-  res.render('places/index', {places })
+  res.render('places/index', {places})
 })
 
 router.post('/', (req, res) => {
@@ -17,7 +17,7 @@ router.post('/', (req, res) => {
     req.body.state = 'USA'
   }
   places.push(req.body)
-  res.redirect('/places')
+  res.redirect('./places')
 })
 
 //get places new
@@ -38,6 +38,20 @@ router.get('/:id', (req, res) => {
   }
 })
 
+router.put('/:id', (req, res) => {
+  let id = Number(req.params.id)
+  if (isNaN(id)) {
+      res.render('error404')
+  }
+  else if (!places[id]) {
+      res.render('error404')
+  }
+  else {
+      places[id] = req.body
+      res.redirect(`/places/${id}`)
+  }
+})
+
 router.delete('/:id', (req, res) => {
   let id = Number(req.params.id)
   if (isNaN(id)) {
@@ -47,7 +61,7 @@ router.delete('/:id', (req, res) => {
     res.render('error404')
   }
   else {
-    place.splice(id, 1)
+    places.splice(id, 1)
     res.redirect('/places')
   }
 })
@@ -61,7 +75,7 @@ router.get('/:id/edit', (req, res) => {
       res.render('error404')
   }
   else {
-    res.render('places/edit', { place: places[id] })
+    res.render('places/edit', { place: places[id], id })
   }
 })
 
