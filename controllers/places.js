@@ -2,7 +2,6 @@ const router = require('express').Router()
 const places = require('../models/places.js')
 
 router.post('/', (req, res) => {
-  console.log(req.body)
   if (!req.body.pic) {
     req.body.pic = 'http://placekitten.com/400/400'
   }
@@ -23,7 +22,7 @@ router.get('/new', (req, res) => {
 
 //get places
 router.get('/', (req, res) => {
-      res.render('places/index', {places })
+  res.render('places/index', {places })
 })
 
 module.exports = router
